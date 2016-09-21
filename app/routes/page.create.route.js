@@ -15,17 +15,20 @@ function route_page_create (config, raneto) {
     });
 
     fs.open(filepath, 'a', function (error, fd) {
-      fs.close(fd);
-      if (error) {
-        return res.json({
-          status  : 1,
-          message : error
+      setTimeout(function () {
+        fs.close(fd);
+        if (error) {
+          return res.json({
+            status  : 1,
+            message : error
+          });
+        }
+        res.json({
+          status  : 0,
+          message : config.lang.api.pageCreated
         });
-      }
-      res.json({
-        status  : 0,
-        message : config.lang.api.pageCreated
-      });
+      }, 100);
+
     });
 
   };

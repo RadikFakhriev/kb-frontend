@@ -13,6 +13,7 @@ var extend        = require('extend');
 var hogan         = require('hogan-express');
 var session       = require('express-session');
 var raneto        = require('raneto-core');
+var timeout       = require('connect-timeout');
 
 function initialize (config) {
 
@@ -65,6 +66,7 @@ function initialize (config) {
   app.use(body_parser.urlencoded({ extended : false }));
   app.use(cookie_parser());
   app.use(express.static(config.public_dir));
+  app.use(timeout('5s'));
   if (config.theme_dir !== path.join(__dirname, '..', 'themes')) {
     app.use(express.static(path.join(config.theme_dir, config.theme_name, 'public')));
   }
